@@ -12,11 +12,21 @@ def portfolio_cost(filename):
             print(headers)
 
         for line in f:
-            row = line.split(',')
-            s_cost = int(row[1]) * float(row[2])
-            cost_a += s_cost
+            try:
+                row = line.split(',')
+                s_cost = int(row[1]) * float(row[2])
+                cost_a += s_cost
+            except ValueError:
+                print('Bad row', row)
         return cost_a
 
+import sys
 
-cost = portfolio_cost('Data/portfolio.csv')
+if len(sys.argv) == 2:
+    filename = sys.argv[1]
+else:
+    filename = input('Enter File Name:')
+
+
+cost = portfolio_cost(filename)
 print('Total cost: ',cost)
